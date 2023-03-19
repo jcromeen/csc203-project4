@@ -20,7 +20,7 @@ public final class Fairy extends Entity implements Moves {
 
     public Point nextPosition(WorldModel world, Point destPos) {
         PathingStrategy strategy = new AStarPathingStrategy();
-        List<Point> points = strategy.computePath(this.position, destPos, p -> !(world.isOccupied(p)), (p1, p2) -> adjacent(p1, p2), PathingStrategy.CARDINAL_NEIGHBORS);
+        List<Point> points = strategy.computePath(this.position, destPos, p -> world.withinBounds(p) && (!(world.isOccupied(p))), (p1, p2) -> adjacent(p1, p2), PathingStrategy.CARDINAL_NEIGHBORS);
         if(points.size() == 0){
             return this.position;
         }
